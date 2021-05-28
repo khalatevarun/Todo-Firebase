@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import {
   FormControl,
@@ -9,18 +9,28 @@ import {
   InputLabel,
 } from '@material-ui/core';
 import Todo from './Todo';
+import db from './firebase';
+import firebase from 'firebase';
 
 function App() {
-  const [todos, setTodos] = useState([
-    'Take dogs for a walk',
-    'Take the rubbish out',
-  ]);
-
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
+  console.log(todos);
+  useEffect(() => {
+    db.collection('todos')
+      .orderBy('timestamp', 'desc')
+      .onSnapshot((snapshot) => {
+        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+      });
+  }, []);
 
   const addTodo = (event) => {
     event.preventDefault(); //stop the refresh once form is submitted
-    setTodos([...todos, input]);
+    db.collection('todos').add({
+      todo: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
     setInput('');
   };
 
