@@ -1,6 +1,13 @@
 import './App.css';
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Input,
+  InputLabel,
+} from '@material-ui/core';
 
 function App() {
   const [todos, setTodos] = useState([
@@ -20,10 +27,15 @@ function App() {
     <div className="App">
       <h1>Hello world</h1>
       <form>
-        <input
-          value={input}
-          onChange={(event) => setInput(event.target.value)}
-        />
+        <FormControl>
+          <InputLabel htmlFor="my-input">Write a Todo</InputLabel>
+          <Input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            id="my-input"
+            aria-describedby="my-helper-text"
+          />
+        </FormControl>
         <Button
           disabled={!input}
           type="submit"
