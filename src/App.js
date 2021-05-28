@@ -8,6 +8,7 @@ import {
   Input,
   InputLabel,
 } from '@material-ui/core';
+import Todo from './Todo';
 
 function App() {
   const [todos, setTodos] = useState([
@@ -48,7 +49,7 @@ function App() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li>{todo}</li>
+          <Todo text={todo} />
         ))}
       </ul>
     </div>
