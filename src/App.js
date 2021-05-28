@@ -20,7 +20,9 @@ function App() {
     db.collection('todos')
       .orderBy('timestamp', 'desc')
       .onSnapshot((snapshot) => {
-        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+        setTodos(
+          snapshot.docs.map((doc) => ({ id: doc.id, todo: doc.data().todo })),
+        );
       });
   }, []);
 
@@ -37,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hello world</h1>
+
       <form>
         <FormControl>
           <InputLabel htmlFor="my-input">Write a Todo</InputLabel>
@@ -59,7 +62,7 @@ function App() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <Todo text={todo} />
+          <Todo task={todo} />
         ))}
       </ul>
     </div>
