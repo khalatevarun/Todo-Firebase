@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: 'DM Sans', sans-serif;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background: linear-gradient(
+    90deg,
+    rgba(48, 16, 255, 1) 0%,
+    rgba(100, 115, 255, 1) 100%
+  );
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.parent-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: start;
+  width: 520px;
+  height: 600px;
+  background: #161a2b;
+  text-align: center;
+  margin: 75px auto 0px auto;
+  border-radius: 8px;
+  padding-bottom: 32px;
+  overflow-y: hidden;
+}
+
+.title {
+  font-size: xx-large;
   color: white;
+  font-weight: 700;
+  text-align: center;
+  margin: 30px;
 }
 
-.App-link {
-  color: #61dafb;
+.todoList {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todoList::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }

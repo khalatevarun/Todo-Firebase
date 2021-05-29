@@ -7,6 +7,7 @@ import {
   FormHelperText,
   Input,
   InputLabel,
+  TextField,
 } from '@material-ui/core';
 import Todo from './Todo';
 import db from './firebase';
@@ -36,33 +37,52 @@ function App() {
     setInput('');
   };
 
+  const colors = [
+    'linear-gradient(\n    90deg,\n    rgba(255, 118, 20, 1) 0%,\n   rgba(255, 84, 17, 1) 100%\n  )',
+    'linear-gradient(\n    90deg,\n    rgba(93, 12, 255, 1) 0%,\n    rgba(155, 0, 250, 1) 100%\n  )',
+    'linear-gradient(\n    90deg,\n    rgba(255, 12, 241, 1) 0%,\n   rgba(250, 0, 135, 1) 100%\n  )',
+    'linear-gradient(\n    90deg,\n    rgba(20, 159, 255, 1) 0%,\n   rgba(17, 122, 255, 1) 100%\n  )',
+  ];
+
   return (
-    <div className="App">
-      <h1>Hello world</h1>
+    <div className="parent-container">
+      <div className="title">My Todo List</div>
 
       <form>
         <FormControl>
-          <InputLabel htmlFor="my-input">Write a Todo</InputLabel>
-          <Input
+          <TextField
+            style={{
+              color: '#fff',
+              borderRadius: ' 4px 0 0 4px',
+              border: '2px solid #5d0cff',
+            }}
+            placeholder="Write a Todo"
             value={input}
             onChange={(event) => setInput(event.target.value)}
             id="my-input"
-            aria-describedby="my-helper-text"
+            variant="outlined"
           />
         </FormControl>
         <Button
+          style={{
+            background:
+              'linear-gradient(\n    90deg,\n    rgba(93, 12, 255, 1) 0%,\n    rgba(155, 0, 250, 1) 100%\n  )',
+            padding: '15px',
+            color: '#fff',
+            borderRadius: ' 0 4px 4px 0',
+          }}
           disabled={!input}
           type="submit"
           onClick={addTodo}
-          variant="contained"
+          variant="outlined"
           color="primary"
         >
           Add Todo
         </Button>
       </form>
-      <ul>
-        {todos.map((todo) => (
-          <Todo task={todo} />
+      <ul className="todoList">
+        {todos.map((todo, index) => (
+          <Todo task={todo} color={colors[index % 4]} />
         ))}
       </ul>
     </div>

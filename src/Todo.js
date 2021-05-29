@@ -13,6 +13,7 @@ import './Todo.css';
 import db from './firebase';
 import { useState } from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 function Todo(props) {
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -46,31 +47,29 @@ function Todo(props) {
 
   return (
     <>
-      <Modal open={open} onClose={(e) => setOpen(false)}>
-        <div className={classes.paper}>
-          <h1>open</h1>
-          <input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
+      <div className="task" style={{ background: props.color }}>
+        <Modal open={open} onClose={(e) => setOpen(false)}>
+          <div className={classes.paper}>
+            <h1>open</h1>
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+            />
+            <Button onClick={updateTodo}>Update Todo</Button>
+          </div>
+        </Modal>
+        <List className="todo_list">
+          <ListItem>
+            <ListItemText primary={props.task.todo} />
+          </ListItem>
+          <EditIcon onClick={(e) => setOpen(true)} />
+          <DeleteIcon
+            onClick={(event) =>
+              db.collection('todos').doc(props.task.id).delete()
+            }
           />
-          <Button onClick={updateTodo}>Update Todo</Button>
-        </div>
-      </Modal>
-      <List className="todo_list">
-        <ListItem>
-          <ListItemAvatar></ListItemAvatar>
-          <ListItemText
-            primary={props.task.todo}
-            secondary="Dummy deadline..."
-          />
-        </ListItem>
-        <button onClick={(e) => setOpen(true)}>Edit</button>
-        <DeleteIcon
-          onClick={(event) =>
-            db.collection('todos').doc(props.task.id).delete()
-          }
-        />
-      </List>
+        </List>
+      </div>
     </>
   );
 }
