@@ -70,9 +70,8 @@ body {
     rgba(155, 0, 250, 1) 100%
   );
   color: #fff;
-  text-transform: capitalize;
 }
 
 .todo-form {
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
