@@ -30,10 +30,6 @@ function Todo(props) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState(props.task.todo);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   const updateTodo = () => {
     db.collection('todos').doc(props.task.id).set(
       {

@@ -7,25 +7,45 @@ import {
   FormHelperText,
   Input,
   InputLabel,
+  makeStyles,
+  Select,
   TextField,
 } from '@material-ui/core';
 import Todo from './Todo';
 import db from './firebase';
 import firebase from 'firebase';
 
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(0),
+    minWidth: 60,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(1),
+  },
+}));
+
 function App() {
+  const classes = useStyles();
+
   const [todos, setTodos] = useState([]);
   const [input, setInput] = useState('');
+  const [orderBy, setOrderBy] = useState('desc');
+
   console.log(todos);
   useEffect(() => {
     db.collection('todos')
-      .orderBy('timestamp', 'desc')
+      .orderBy('timestamp', orderBy)
       .onSnapshot((snapshot) => {
         setTodos(
           snapshot.docs.map((doc) => ({ id: doc.id, todo: doc.data().todo })),
         );
       });
-  }, []);
+  }, [orderBy]);
+
+  const handleChange = (event) => {
+    setOrderBy(event.target.value);
+  };
 
   const addTodo = (event) => {
     event.preventDefault(); //stop the refresh once form is submitted
@@ -46,7 +66,19 @@ function App() {
 
   return (
     <div className="parent-container">
-      <div className="title">My Todo List</div>
+      <div className="part1">
+        <div style={{ flex: '1' }}></div>
+        <p className="title"> My Todo List</p>
+        <div style={{ flex: '1', marginTop: '20px' }}>
+          <FormControl variant="filled" className={classes.formControl}>
+            <InputLabel>Sort By</InputLabel>
+            <Select native value={orderBy} onChange={handleChange}>
+              <option value={'desc'}>Newest</option>
+              <option value={'asc'}>Oldest</option>
+            </Select>
+          </FormControl>
+        </div>
+      </div>
       <form className="todo-form" onSubmit={addTodo}>
         <input
           placeholder="Add a todo"
