@@ -64,6 +64,7 @@ function Todo(props) {
           </ListItem>
           <EditIcon onClick={(e) => setOpen(true)} />
           <DeleteIcon
+            style={{ margin: '15px' }}
             onClick={(event) =>
               db.collection('todos').doc(props.task.id).delete()
             }
