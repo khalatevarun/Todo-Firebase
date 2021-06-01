@@ -47,8 +47,21 @@ function App() {
   return (
     <div className="parent-container">
       <div className="title">My Todo List</div>
+      <form className="todo-form" onSubmit={addTodo}>
+        <input
+          placeholder="Add a todo"
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+          name="text"
+          className="todo-input"
+          //  ref={inputRef}
+        />
+        <button onClick={addTodo} className="todo-button" disabled={!input}>
+          Add todo
+        </button>
+      </form>
 
-      <form>
+      {/* <form>
         <FormControl>
           <TextField
             style={{
@@ -79,7 +92,7 @@ function App() {
         >
           Add Todo
         </Button>
-      </form>
+      </form> */}
       <ul className="todoList">
         {todos.map((todo, index) => (
           <Todo task={todo} color={colors[index % 4]} />
